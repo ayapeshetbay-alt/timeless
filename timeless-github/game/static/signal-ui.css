@@ -1,0 +1,470 @@
+:root {
+  color-scheme: dark;
+  --panel: #14181a;
+  --paper: #f2f0e9;
+  --muted: #bdc5c6;
+  --line: #465254;
+  --mint: #9ccbbb;
+  --blue: #9bd8ec;
+  --gold: #efbb7f;
+  --edge: clamp(14px, 3vw, 48px);
+  --shadow: 0 4px 0 #1728223d, 0 16px 48px #1728222c;
+}
+body { background: #b8c2b3; color: var(--paper); font-family: "Instrument Sans", system-ui, sans-serif; }
+button, select {
+  background: #20282a; color: var(--paper); border: 1px solid var(--line);
+  border-radius: 2px; box-shadow: none;
+}
+button:hover:not(:disabled), button[aria-pressed=true], .choice.selected {
+  background: #303e40; color: #fffef5; border-color: var(--mint);
+}
+button.primary, button.primary:hover:not(:disabled) { background: #9ccbbb; border-color: #9ccbbb; color: #152320; }
+button.primary:hover:not(:disabled) { background: #c4e4d8; }
+button:focus-visible, a:focus-visible, summary:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--blue); outline-offset: 3px;
+}
+header {
+  inset: 16px var(--edge) auto; padding: 0; gap: 12px;
+  background: none; border: 0; box-shadow: none; pointer-events: none;
+}
+header a, header button { pointer-events: auto; }
+.brand {
+  background: var(--panel); color: var(--paper); padding: 7px 12px; font-weight: 800;
+  letter-spacing: .16em; box-shadow: 0 2px 0 #17282245;
+}
+#connection, footer, body:not([data-screen="game"]) .header-actions { display: none; }
+.header-actions button { background: var(--panel); font-size: 12px; }
+body:not(.playing) :is(#aim,#interaction), body[data-screen="pause"] #toast { visibility: hidden; }
+body:has(.dialog) :is(header,#countdown,#map-panel,#voice-status,#camera-panel) { visibility: hidden; }
+#countdown {
+  inset: 14px auto auto 50%; background: var(--panel); color: var(--paper);
+  border: 0; border-bottom: 2px solid var(--mint); border-radius: 0; padding: 5px 12px;
+}
+#countdown b { color: inherit; font: 700 23px "IBM Plex Mono", monospace; font-variant-numeric: tabular-nums; }
+#countdown small { color: var(--muted); }
+#countdown:is(.urgent,.critical) { color: #ffd4bd; border-color: #e79772; background: #321f1b; }
+#map-panel {
+  inset: auto var(--edge) 20px auto; width: auto; padding: 8px; transform: none;
+  background: var(--panel); border: 0; border-left: 2px solid var(--mint); border-radius: 0; box-shadow: var(--shadow);
+}
+.map-title { padding: 1px 2px 5px; font-weight: 700; }
+.map-title button { display: none; }
+.map-legend { color: var(--muted); margin-top: 4px; }
+#interaction, #toast, #camera-panel, #voice-status {
+  background: var(--panel); color: var(--paper); border: 0; border-radius: 2px; box-shadow: var(--shadow);
+}
+#interaction {
+  bottom: 16%; max-width: min(78vw, 460px); padding: 3px 0;
+  background: none; box-shadow: none; color: #fffef5;
+  text-shadow: 0 1px 2px #080e10, 0 2px 7px #080e10, 0 0 14px #080e10;
+}
+#interaction kbd {
+  display: inline-block; margin-right: 8px; padding: .05em .42em;
+  border: 1px solid #d5eee4; border-radius: 3px;
+  background: #172421e6; color: #e1fff2; font: 600 .82em ui-monospace, monospace;
+  text-shadow: none;
+}
+#aim { transform: translate(-50%, -50%); }
+#aim.focused { width: 10px; height: 10px; background: transparent; border: 1px solid #e2fff2; box-shadow: 0 0 0 1px #152724; }
+#toast { bottom: 21%; border-left: 3px solid var(--mint); }
+#voice-status { top: 65px; max-width: min(380px, 84vw); }
+#camera-panel { bottom: 20px; }
+#screen { inset: 68px 0 16px; }
+.hero, .pause-menu, .settings-sheet, .card, .dialog {
+  background: var(--panel); color: var(--paper); border: 0; border-radius: 0; box-shadow: var(--shadow);
+}
+.hero {
+  width: min(460px, calc(100% - 2 * var(--edge))); padding: clamp(20px,4vw,44px);
+  margin: clamp(18px,7vh,75px) var(--edge); border-top: 4px solid var(--mint);
+}
+.hero h1 { font: 800 clamp(42px,7vw,78px)/.95 "Archivo Black", system-ui, sans-serif; letter-spacing: -.069em; margin: 0 0 16px; }
+.hero .eyebrow { margin-bottom: 12px; }
+.hero .lead { color: var(--muted); max-width: 36ch; font-size: 16px; }
+.hero .actions { margin: 20px 0 0; }
+.menu-buttons { margin-top: 24px; width: auto; }
+.menu-buttons span { font-size: 12px; align-self: center; }
+.pause-layout {
+  width: min(900px, calc(100% - 2 * var(--edge))); margin: clamp(12px,5vh,56px) var(--edge) 20px;
+  display: grid; grid-template-columns: minmax(195px, 270px) minmax(0, 410px); gap: 14px; align-items: start; pointer-events: none;
+}
+#screen > .pause-layout { pointer-events: none; }
+.pause-menu, .settings-sheet { pointer-events: auto; padding: clamp(16px,3vw,25px); }
+.pause-menu { border-top: 4px solid var(--mint); display: grid; gap: 3px; }
+.pause-menu h2 { margin: 0 0 11px; font-size: clamp(26px,4vw,44px); }
+.pause-menu button { text-align: left; }
+.pause-menu button:not(.primary) { background: transparent; border: 0; }
+.pause-menu button:hover:not(.primary), .pause-menu button[aria-current=true] { background: #293738; }
+.pause-menu button[aria-current=true] { box-shadow: inset 3px 0 var(--mint); }
+.settings-sheet h3 { margin: 2px 0 16px; font-size: 23px; }
+.settings-sheet .setting { margin: 12px 0; }
+.settings-sheet output { font: 700 .9em "IBM Plex Mono", monospace; color: var(--mint); }
+.settings-sheet select { width: 100%; padding: 8px; }
+.backdrop { background: transparent; backdrop-filter: none; padding: 16px var(--edge); }
+.dialog { border-top: 4px solid var(--mint); padding: clamp(20px,4vw,35px); }
+.dialog.notebook { border-top-color: #d7a971; background: #1b1917; }
+.dialog h2 { font-size: clamp(24px,3vw,38px); margin: 0; }
+.document-text { color: var(--paper); background: #29241f; border: 0; border-left: 3px solid #d7a971; padding: 14px 17px; }
+.journal-entry { border-bottom-color: #4e463c; }
+.journal-entry summary { color: var(--mint); font-weight: 700; }
+.journal-entry p { margin: 10px 0; }
+.signal-hint { padding: 9px 12px; background: #273532; border-left: 3px solid var(--mint); }
+.binding-list { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(215px,100%),1fr)); gap: 0 18px; }
+.binding-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--line); }
+.binding-row button { min-width: 58px; font: inherit; }
+.quest-summary, .circuit-status, .radio-transcript, .case-progress span, .beacon-progress span, .riddle, .dial-unit {
+  background: #252d2e; color: var(--paper); border-color: var(--line);
+}
+.circuit-board, .circuit-tile, .pipe-option, .time-choice { background: #20282a; border-color: var(--line); color: var(--paper); }
+.circuit-tile svg path, .pipe-option svg path { stroke: var(--mint); }
+#time-transfer { inset: auto auto 10% 50%; transform: translateX(-50%); padding: 12px 22px; gap: 5px; background: var(--panel); border-left: 3px solid var(--mint); backdrop-filter: none; box-shadow: var(--shadow); }
+#time-transfer .transfer-date { font-size: clamp(25px,4vw,46px); }
+body.shifting #world { filter: none; }
+#finale-scene, #finale-scene.reunion, #epilogue { background: transparent; }
+.finale-card, #finale-scene.reunion .finale-card, .monitor {
+  background: transparent; color: #f7f3ea; padding: 4px 8px 18px; margin-bottom: 4vh;
+  border: 0; box-shadow: none;
+}
+.finale-card span, .monitor small {
+  color: #f6e7c4;
+  text-shadow: 0 1px 2px rgba(8, 16, 22, .92), 0 2px 12px rgba(8, 16, 22, .72);
+}
+.finale-card p, .monitor b, .monitor small {
+  text-shadow: 0 1px 2px rgba(8, 16, 22, .95), 0 3px 18px rgba(8, 16, 22, .78);
+}
+.cinematic-bars { display:none; }
+body.contrast { --paper: #fff; --panel: #0c0e0f; --muted: #e1e8e8; --line: #909e9f; }
+@media(max-width:760px) {
+  header { flex-wrap: wrap; }
+  .header-actions { margin-left: auto; flex-wrap: wrap; justify-content: flex-end; }
+  .header-actions button { padding: 4px 7px; }
+  #countdown { top: 61px; }
+  #screen { inset-block-start: 82px; }
+  .pause-layout { grid-template-columns: minmax(160px, 220px) minmax(0, 1fr); }
+  #map-panel { scale: .8; transform-origin: bottom right; }
+}
+@media(max-width:470px) {
+  .pause-layout { grid-template-columns: 1fr; }
+  .pause-menu { max-width: none; }
+}
+
+body[data-screen="start"] header, body[data-screen="menu"] header { visibility: hidden; }
+
+#current-objective {
+  position: fixed;
+  z-index: 4;
+  top: 76px;
+  left: var(--edge);
+  max-width: min(360px, calc(100vw - 2 * var(--edge)));
+  color: #fffef5;
+  text-shadow: 0 1px 2px #080d10, 0 2px 6px #080d10, 0 0 14px #080d10;
+  pointer-events: none;
+}
+#current-objective strong { display: block; font-size: 17px; font-weight: 700; }
+#current-objective span { display: block; margin-top: 4px; font-size: 14px; line-height: 1.4; }
+body.large #current-objective strong { font-size: 20px; }
+body.large #current-objective span { font-size: 17px; }
+@media(max-width:760px) { #current-objective { top: 115px; } }
+
+#anna-caption {
+  position: fixed; z-index: 22; left: 50%; bottom: 5%; transform: translateX(-50%);
+  width: max-content; max-width: min(62vw, 600px); padding: .32em .65em;
+  color: #fffef5; background: #14181aed; text-align: center;
+}
+#anna-intro-line {
+  margin: 0; padding-left: 12px; border-left: 2px solid var(--mint); color: var(--paper);
+}
+@media (max-width: 760px) {
+  #anna-caption { bottom: 18%; max-width: 88vw; }
+}
+
+.puzzle-layout { display: flex; gap: 18px; align-items: flex-start; justify-content: center; flex-wrap: wrap; }
+.puzzle-board { display: grid; grid-template-columns: repeat(3, 92px); gap: 5px; padding: 8px; background: #10181c; }
+button.puzzle-tile, button.puzzle-tile:hover:not(:disabled), button.puzzle-tile.selected, button.puzzle-tile.held {
+  width: 92px; height: 92px; min-height: 0; padding: 0; border-radius: 2px;
+  background-color: #142026; background-image: url('/assets/puzzle-station.svg');
+  background-repeat: no-repeat; background-size: 300% 300%;
+  border: 2px solid #3d5158; box-shadow: none;
+}
+button.puzzle-tile.selected, button.puzzle-tile.selected:hover:not(:disabled) { border-color: #e98a3b; }
+button.puzzle-tile.held, button.puzzle-tile.held:hover:not(:disabled) { border-color: #7ee0c8; }
+.puzzle-ref { margin: 0; display: grid; gap: 6px; justify-items: center; }
+.puzzle-ref figcaption { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.puzzle-ref div { width: 108px; height: 108px; background-size: cover; background-position: center; border: 1px solid #3d5158; }
+@media (max-width: 600px) {
+  .puzzle-board { grid-template-columns: repeat(3, 72px); }
+  button.puzzle-tile, button.puzzle-tile:hover:not(:disabled) { width: 72px; height: 72px; }
+}
+
+/* 2074 keeps the pale station panels. Ink has to stay dark or captions disappear. */
+body.era-future:not(.contrast) {
+  --paper: #1a3330;
+  --muted: #3c5854;
+}
+body.era-future:not(.contrast) :is(button, select, .dialog.notebook, .signal-hint, .quest-summary, .circuit-status, .radio-transcript, .case-progress span, .beacon-progress span, .riddle, .dial-unit, .circuit-tile, .pipe-option, .time-choice, .puzzle-board) {
+  color: #f3f1ea;
+}
+body.era-future:not(.contrast) :is(.header-actions button, button.primary) {
+  color: #1a3330;
+}
+body header .header-actions button,
+body.era-future header .header-actions button,
+body header .header-actions button:hover:not(:disabled),
+body header .header-actions button[aria-pressed="true"] {
+  background: #f7fbf8;
+  color: #102824;
+  border-color: #6e9089;
+  font-weight: 650;
+  text-shadow: none;
+}
+
+/* Floating labels stay on the scene. Only the four header actions keep a plaque. */
+.brand, #countdown, #countdown:is(.urgent, .critical), #toast, #anna-caption, #voice-status, #camera-panel, #time-transfer {
+  background: transparent;
+  border: 0;
+  border-left: 0;
+  box-shadow: none;
+}
+.brand, #countdown, #countdown b, #countdown small, #toast, #voice-status, #time-transfer, #time-transfer .transfer-date {
+  color: #fffef5;
+  text-shadow: 0 1px 2px #080d10, 0 2px 8px #080d10, 0 0 14px #080d10;
+}
+#countdown:is(.urgent, .critical), #countdown:is(.urgent, .critical) b {
+  color: #ffd4bd;
+  background: transparent;
+}
+#anna-caption {
+  background: transparent;
+  text-shadow: 0 1px 2px #080d10, 0 2px 8px #080d10, 0 0 14px #080d10;
+}
+#interaction kbd {
+  background: transparent;
+  border-color: transparent;
+  color: #fffef5;
+  text-shadow: 0 1px 2px #080d10, 0 2px 6px #080d10;
+}
+#map-panel {
+  background: #14181a;
+  border: 0;
+  border-left: 2px solid var(--mint);
+  box-shadow: var(--shadow);
+  color: #f2f0e9;
+}
+.map-title, .map-legend { color: #d5ddd8; text-shadow: none; }
+
+body.era-future header .header-actions button,
+body.era-2074 header .header-actions button,
+body.era-future header .header-actions button:hover:not(:disabled),
+body.era-2074 header .header-actions button:hover:not(:disabled),
+body.era-future header .header-actions button[aria-pressed="true"],
+body.era-2074 header .header-actions button[aria-pressed="true"] {
+  background: #f4faf7;
+  color: #10241f;
+  -webkit-text-fill-color: #10241f;
+  border-color: #6e9089;
+}
+
+/* One face and one size for every line of interface text. */
+body, button, input, select, textarea,
+.hero, .hero h1, .hero .lead, .pause-menu, .pause-menu h2, .settings-sheet, .settings-sheet h3, .settings-sheet output,
+.dialog, .dialog h2, .document-text, .riddle, .radio-transcript, .radio-transcript p, .radio-transcript span,
+.journal-entry, .journal-entry summary, .journal-entry p, .quest-summary, .quest-summary p, .era-note, .small, .eyebrow,
+#countdown, #countdown small, #countdown b, #current-objective, #current-objective strong, #current-objective span,
+#anna-caption, #toast, #interaction, #interaction kbd, #voice-status, #time-transfer, #time-transfer .transfer-date,
+.finale-card, .finale-card span, .finale-card p, #finale-scene .finale-card p, #finale-scene.reunion .finale-card p,
+.monitor, .monitor b, .monitor small, .cinematic-text, .cinematic-text span, .cinematic-text h2,
+.map-title, .map-legend, .menu-buttons span, .header-actions button, .binding-row button {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-style: normal;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 1.45;
+}
+#countdown b, #current-objective strong, .hero h1, .dialog h2, .pause-menu h2, .finale-card p, .monitor b {
+  font-weight: 650;
+}
+
+header, #countdown {
+  top: 16px;
+  align-items: center;
+}
+#countdown {
+  height: 32px;
+  padding: 0;
+  gap: 8px;
+}
+header .header-actions { align-items: center; }
+body header .header-actions button {
+  min-height: 0;
+  height: 32px;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+#countdown, #countdown small, #countdown b, body header .header-actions button {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+/* Notes share one face and one rhythm. Title, place, quote bar and the primary button stay distinct. */
+.dialog.notebook {
+  gap: 14px;
+  padding: 28px 32px 24px;
+  color: #f4f0e6;
+}
+.dialog.notebook h2 {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 650;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: 0;
+  color: #f7f3ea;
+}
+.dialog.notebook .eyebrow,
+.dialog.notebook .radio-transcript span {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 650;
+  font-style: normal;
+  line-height: 1.3;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #9ccbbb;
+}
+.dialog.notebook:has(> .document-text) {
+  gap: 0;
+  width: min(640px, 94vw);
+}
+.dialog.notebook:has(> .document-text) > h2 { margin: 0 0 8px; }
+.dialog.notebook:has(> .document-text) > .eyebrow { margin: 0 0 20px; }
+.dialog.notebook:has(> .document-text) > .document-text { margin: 0 0 14px; }
+.dialog.notebook:has(> .document-text) > .small { margin: 0 0 20px; }
+.dialog.notebook .document-text,
+.dialog.notebook .journal-entry p,
+.dialog.notebook .radio-transcript {
+  margin: 0;
+  padding: 16px 18px;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.55;
+  letter-spacing: 0;
+  color: #f4f0e6;
+  background: #29241f;
+  border: 0;
+  border-radius: 0;
+  border-left: 3px solid #d7a971;
+}
+.dialog.notebook .radio-transcript p {
+  margin: 10px 0 0;
+  padding: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.55;
+  letter-spacing: 0;
+  color: #f4f0e6;
+  background: transparent;
+  border: 0;
+}
+.dialog.notebook .small,
+.dialog.notebook .era-note {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.45;
+  letter-spacing: 0;
+  color: #aeb6b4;
+}
+.dialog.notebook .quest-summary {
+  margin: 0;
+  padding: 14px 16px;
+  background: #252d2e;
+  border: 0;
+  border-left: 3px solid #9ccbbb;
+}
+.dialog.notebook .quest-summary strong {
+  display: block;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1.35;
+  letter-spacing: 0;
+  color: #f7f3ea;
+}
+.dialog.notebook .quest-summary p {
+  margin: 8px 0 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: #f4f0e6;
+}
+.dialog.notebook .journal-entry {
+  margin: 0;
+  padding: 0 0 14px;
+  border: 0;
+  border-bottom: 1px solid #3d3832;
+}
+.dialog.notebook .journal-entry summary {
+  padding: 0 0 8px;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 650;
+  font-style: normal;
+  line-height: 1.35;
+  letter-spacing: 0;
+  color: #9ccbbb;
+  cursor: pointer;
+}
+.dialog.notebook .journal-entry p { margin: 0; }
+.dialog.notebook .case-progress,
+.dialog.notebook .beacon-progress { gap: 8px; }
+.dialog.notebook .case-progress span,
+.dialog.notebook .beacon-progress span {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0;
+  padding: 6px 10px;
+  background: #252d2e;
+  color: #d5ddd8;
+  border-radius: 2px;
+}
+.dialog.notebook .case-progress .done,
+.dialog.notebook .beacon-progress .done {
+  background: #1e3a32;
+  color: #9ccbbb;
+}
+.dialog.notebook .actions { margin: 0; gap: 10px; align-items: center; }
+.dialog.notebook .actions button {
+  min-height: 40px;
+  height: 40px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: 0;
+}
+.dialog.notebook .actions button.primary {
+  color: #152320;
+  -webkit-text-fill-color: #152320;
+}
